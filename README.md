@@ -1,0 +1,1 @@
+This directory is store the solution fuctions to codewars probelems in case future development projects need to do something similar.
