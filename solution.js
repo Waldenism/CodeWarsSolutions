@@ -1,10 +1,38 @@
-// #6 (6) top gninnipS My sdroW!
+// #6 (6) stop gninnipS My sdroW!
 //Write a function that takes in a string of one or more words, and returns the same string, but with all five or more letter words reversed
 
 // My Solution
+function spinWords(string){
+  let a = string.split(' ')
+  
+  for(let i=0; i < a.length; i++) {
+    if(a[i].length >= 5){
+      a[i] = a[i].split('').reverse().join('')
+    }
+  }
+  return a.join(' ')
+}
 
 // TOP SOLUTION(S)
+  function spinWords(words){
+    return words.split(' ').map(function (word) {
+      return (word.length > 4) ? word.split('').reverse().join('') : word;
+    }).join(' ');
+  }
 
+  function spinWords(str){
+    return str.split(' ').map( w => w.length<5 ? w : w.split('').reverse().join('') ).join(' ');
+  }
+
+  {
+    function spinWords(str){
+      return str.split(' ').map(spinSingleWord).join(' ');
+    }
+
+    function spinSingleWord(word){
+      return word.length>4 ? word.split('').reverse().join('') : word;
+    }
+  }
 
 //#5 (7) Decending Order
 // Your task is to make a function that can take any non-negative integer as a argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.
