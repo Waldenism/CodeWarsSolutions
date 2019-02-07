@@ -1,3 +1,85 @@
+//#8 (6) Roman Numeral Decoder
+// Convert a string with roman numerals and convert to numeric decimal number
+// My Solution
+function solution(roman){
+  const romanNumerals = {
+    M : 1000,
+    D : 500,
+    C : 100,
+    L : 50,
+    X : 10,
+    V : 5,
+    I : 1
+  }
+  let numeric = 0
+  let letters = roman.split('')
+  for(let i=0; i<letters.length; i++){
+    if(romanNumerals[letters[i]] < romanNumerals[letters[i+1]]){
+      numeric += romanNumerals[letters[i+1]] - romanNumerals[letters[i]]
+      i++
+    } else {
+      numeric += romanNumerals[letters[i]]
+    }
+  }
+  return numeric
+}
+
+
+//TOP SOLUTIONS
+function solution(roman){
+  var data = {M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1};
+  var numbers = roman.split('');
+  var sum = 0, i;
+
+  for(i = 0; i < numbers.length; i++){
+    if(data[numbers[i]] < data[numbers[i+1]]){
+      sum += data[numbers[i+1]] - data[numbers[i]];
+      i++;
+    } else {
+      sum += data[numbers[i]];
+    }
+  }
+  return sum;
+}
+
+
+// #7 (6) Tribonacci
+// write a function that adds the previous 3 numbers to get the next number in the sequence. Though the function can be seeded with a signature 
+
+// My Solution
+function tribonacci(signature,n){
+  let ans = []
+  if (n == 0) { return ans }
+  if (n == 1) { return [signature[0]] }
+  if (n == 2) { return [signature[0] , signature[1]] }
+  if (n == 3) { return [signature[0] , signature[1] , signature[2]] }
+  for(let i=0; i < signature.length; i++){
+    ans.push(signature[i])
+  }
+  for(let i=0; i<n-3; i++){
+    let index = (ans[i] + ans[i+1] + ans[i+2]) 
+    ans.push(index)
+  }
+//   console.log(ans)
+  return ans
+}
+
+// TOP SOLUTION
+function tribonacci(signature,n){  
+  for (var i = 0; i < n-3; i++) { // iterate n times
+    signature.push(signature[i] + signature[i+1] + signature[i+2]); // add last 3 array items and push to trib
+  }
+  return signature.slice(0, n); //return trib - length of n
+}
+function tribonacci(s,n){
+  var arr = [];
+  for(var i=0; i<n; i++) {
+    arr.push((i<3) ? s[i] : arr[i-1]+arr[i-2]+arr[i-3]);
+  }
+  return arr;
+}
+
+
 // #6 (6) stop gninnipS My sdroW!
 //Write a function that takes in a string of one or more words, and returns the same string, but with all five or more letter words reversed
 
