@@ -1,10 +1,127 @@
+//#9 (6) Give Me diamond
+// print diamonds given n
+// n = 3
+//    *
+//   ***
+//    *
+// n = 5
+//     *
+//    ***
+//   *****
+//    ***
+//     *
+
+//My Solution
+function diamond(n){
+// n = 5
+  let arc = [] // [1, 3, 5, 3, 1]
+  let spaces = [] // [2, 1, 0, 1, 2]
+  let asterisks = [] // same shape as arc
+  let ans = [] // [ [], [], [], [], [] ]
+  if(n % 2 == 0) {return null}
+  else if(n < 1) {return null}
+  else {
+  // build arc
+    for(let i=1; i<=n; i++){
+      arc.push(i)
+      i++
+    }
+    for(let i=n-2; i >= 1; i--){
+      arc.push(i)
+      i--
+    }
+    console.log(arc)
+    
+  // build spaces
+    for(let i=0; i<arc.length; i++){
+      let spaceCount = (n - arc[i]) / 2
+       //sC is space count place holder
+      function buildSpaces(sC){
+        let s = ''
+        for(let j=sC; j>0; j--){
+          s += ' '
+        }  
+        return s
+      }
+      spaces.push(buildSpaces(spaceCount))
+    }
+    console.log(spaces)
+    
+  // build asterisks
+    for(let i=0; i<arc.length; i++){
+      function buildAsterisks(aC){
+        let a = ''
+        for(let j=aC; j>0; j--){
+          a += "*"
+        }
+        a += '\n'
+        return a
+      }
+      asterisks.push(buildAsterisks(arc[i]))
+    }
+    console.log(asterisks)
+    
+  // build ans array
+    for(let i=0; i<n; i++){
+      ans.push(spaces[i] + asterisks[i])
+    }
+    
+    let answer = ans.join('')
+    console.log(answer)
+    return answer
+
+  } 
+} 
+
+//   n=3                                                 ' *\n' + '***\n' + ' *\n'
+//   n=5                                    '  *\n' + ' ***\n' + '*****\n' + ' ***\n' + '  *\n'
+//   n=7  '   *\n' + '  ***\n' + ' *****\n' + '*******\n' + ' *****\n' + '  ***\n' + '   *\n'
+//   n=9 '    *\n' + '   ***\n' + '  *****\n' + ' *******\n' + '*********\n' + ' *******\n' + '  *****\n' + '   ***\n' + '    *\n'
+
+// console.log(3 , " *\n***\n *\n")
+// console.log(5 , '  *\n ***\n*****\n ***\n  *\n')
+// console.log(7 , '   *\n  ***\n *****\n*******\n *****\n  ***\n   *')
+// console.log(9 , '    *\n   ***\n  *****\n *******\n*********\n *******\n  *****\n   ***\n    *')
+// console.log(11 , '     *\n    ***\n   *****\n  *******\n *********\n***********\n *********\n  *******\n   *****\n    ***\n     *\n')
+
+
+// Top Solution(s)
+
+function diamond(n){
+  if( n%2==0 || n<1 ) return null
+  var x=0, add, diam = line(x,n);
+  while( (x+=2) < n ){
+    add = line(x/2,n-x);
+    diam = add+diam+add;
+  }
+  return diam;
+}//z.
+
+function repeat(str,x){return Array(x+1).join(str); }
+function line(spaces,stars){ return repeat(" ",spaces)+repeat("*",stars)+"\n"; }
+
+function diamond(n){
+  if (n < 0 || !(n % 2)) return null; 
+  const middleIndex = Math.floor(n / 2);
+  
+  return Array.apply(null, {length: n})
+      .map((el, index) => {
+        const indentation = Math.abs(index - middleIndex);
+        const numberOfAsterisks = n - indentation * 2;
+        return Array(indentation + 1).join(' ') + Array(numberOfAsterisks + 1).join('*');
+      })
+      .join('\n') + '\n';
+}
+
+
+
 //#8 (6) Roman Numeral Decoder
 // Convert a string with roman numerals and convert to numeric decimal number
 // My Solution
 function solution(roman){
   const romanNumerals = {
     M : 1000,
-    D : 500,
+    D : 500, 
     C : 100,
     L : 50,
     X : 10,
